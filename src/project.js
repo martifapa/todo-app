@@ -1,11 +1,15 @@
 import Todo from './todo.js'
 
+let clonedCounter = -2;
+let idCounter = 0;
+
 export default class Project {
     constructor (title, orderCriteria, directionCriteria, todos=[]) {
         this.title = title;
         this.orderCriteria = orderCriteria;
         this.directionCriteria = directionCriteria;
         this.todos = todos;
+        this.id = idCounter++;
     }
 
     setTitle(newTitle) {
@@ -18,15 +22,15 @@ export default class Project {
         this.todos.push(new Todo(title, description, dueDate, priority, type, content, isDone));
     }
 
-    deleteTodo() {
-        const selectedTodo = {}; // FIX
-        this.todos = this.todos.filter(todo => todo != selectedTodo);
+    deleteTodo(todoId) {
+        this.todos = this.todos.filter(todo => todo.id != todoId);
     }
 
-    cloneTodo() {
-        const selectedTodo = {}; // FIX
+    cloneTodo(todoId) {
+        const selectedTodo = this.todos.find(todo => todo.id === todoId);
         const clone = Object.assign(Object.create(Object.getPrototypeOf(selectedTodo)), selectedTodo);
-        this.todos.push(clone)
+        clone.id = clonedCounter--;
+        this.todos.push(clone);
     }
 
     sortTodos(property, direction) {

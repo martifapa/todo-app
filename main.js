@@ -1,3 +1,4 @@
+import Board from './src/board.js';
 import Project from './src/project.js'
 import Todo from './src/todo.js'
 
@@ -9,12 +10,13 @@ const todo4 = new Todo('title3', 'description3', new Date('2024-04-16'), 3, 'tes
 
 
 const project = new Project('test', 'creationDate', 'ascending', [todo1, todo2, todo3]);
-
 console.log(project)
 
-project.cloneTodo(
-    new Todo('title3', 'description3', new Date('2024-04-16'), 
-    3, 'test', '', false)
-)
+project.cloneTodo(1)
 
-console.log(project)
+const board = new Board('board', 'jack', [], [project])
+board.cloneProject(0)
+board.createProject('newpro', 'dueDate', 'ascending', [todo1, todo2])
+console.log(board)
+board.deleteProject(0)
+console.log(board)

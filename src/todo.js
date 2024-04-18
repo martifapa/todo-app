@@ -1,3 +1,5 @@
+let todoCounter = 0;
+
 export default class Todo {
     constructor (title, description, dueDate, priority, type, content, isDone) {
         this.title = title;
@@ -8,6 +10,7 @@ export default class Todo {
         this.type = type;
         this.content = content;
         this.isDone = isDone;
+        this.id = todoCounter++;
     }
 
     toggleIsDone() {

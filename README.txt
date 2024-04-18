@@ -28,6 +28,7 @@ USER
 BOARD
     changeTitle
     createProject / deleteProject / cloneProject
+    addUser / removeUser
 
 PROJECT
     changeTitle
