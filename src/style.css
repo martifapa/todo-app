@@ -6,6 +6,14 @@
     box-sizing: border-box;
 }
 
+:root {
+    --base-dark: #212121;
+}
+
+i {
+    cursor: pointer;
+    color: var(--base-dark);
+}
 body {
     display: grid;
     grid-template-rows: 80px 1fr;
@@ -13,4 +21,37 @@ body {
 
 header {
     box-shadow: 0 -2px 4px 4px grey;
+}
+
+main {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    overflow-x: auto;
+    min-height: calc(100vh - 80px);
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background-color: antiquewhite;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-content {
+    display: flex;
+    gap: 10px;
+}
+
+.todo {
+    width: 250px;
+    min-height: 30px;
+    border: 1px solid grey;
+    padding: 10px;
 }

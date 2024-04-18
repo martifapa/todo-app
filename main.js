@@ -10,13 +10,19 @@ const todo4 = new Todo('title3', 'description3', new Date('2024-04-16'), 3, 'tes
 
 
 const project = new Project('test', 'creationDate', 'ascending', [todo1, todo2, todo3]);
-console.log(project)
+// console.log(project)
 
 project.cloneTodo(1)
 
 const board = new Board('board', 'jack', [], [project])
 board.cloneProject(0)
 board.createProject('newpro', 'dueDate', 'ascending', [todo1, todo2])
-console.log(board)
+// console.log(board)
 board.deleteProject(0)
-console.log(board)
+// console.log(board)
+console.log(board.projects[0].todos.length)
+console.log(board.projects.length)
+// elements
+const createTodoBtn = document.querySelector('.create-todo');
+createTodoBtn.addEventListener('click', board.projects[0].createTodo('a', 'a', 'a', 'a', 'a', 'a', false))
+createTodoBtn.addEventListener('click', () => console.log(board.projects[0].todos.length))
