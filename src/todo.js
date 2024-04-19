@@ -1,7 +1,7 @@
 let todoCounter = 0;
 
 export default class Todo {
-    constructor (title, description, dueDate, priority, type, content, isDone) {
+    constructor (title="", description="", dueDate="", priority=0, type="text", content="", isDone=false) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;

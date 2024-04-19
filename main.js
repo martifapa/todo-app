@@ -1,6 +1,7 @@
 import Board from './src/board.js';
 import Project from './src/project.js'
 import Todo from './src/todo.js'
+import BoardController, {ProjectsController} from './src/domInteractions.js'
 
 
 const todo1 = new Todo('title1', 'description1', new Date('2024-04-15'), 1, 'test', '', false);
@@ -22,7 +23,16 @@ board.deleteProject(0)
 // console.log(board)
 console.log(board.projects[0].todos.length)
 console.log(board.projects.length)
+
+
+
+const boardController = BoardController();
+boardController.renderBoard(board);
+
 // elements
 const createTodoBtn = document.querySelector('.create-todo');
 createTodoBtn.addEventListener('click', board.projects[0].createTodo('a', 'a', 'a', 'a', 'a', 'a', false))
 createTodoBtn.addEventListener('click', () => console.log(board.projects[0].todos.length))
+
+const pc = ProjectsController();
+pc.addTodo(board.projects[0], document.querySelector('.project'));

@@ -4,7 +4,7 @@ let clonedCounter = -2;
 let idCounter = 0;
 
 export default class Project {
-    constructor (title, orderCriteria, directionCriteria, todos=[]) {
+    constructor (title="", orderCriteria="ascending", directionCriteria="", todos=[]) {
         this.title = title;
         this.orderCriteria = orderCriteria;
         this.directionCriteria = directionCriteria;

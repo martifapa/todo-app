@@ -14,7 +14,8 @@ i {
     cursor: pointer;
     color: var(--base-dark);
 }
-body {
+
+.wrapper {
     display: grid;
     grid-template-rows: 80px 1fr;
 }
