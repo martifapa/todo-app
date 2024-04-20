@@ -21,18 +21,7 @@ const boardController = BoardController();
 boardController.renderBoard(board);
 
 // elements
-const createTodoBtns = document.querySelectorAll('.create-todo');
 
-createTodoBtns.forEach(btn => btn.addEventListener('click', function(event) {
-    event.preventDefault();
-    console.log(1)
-    const projectContainer = event.target.closest('.project');
-    const projectId = parseInt(projectContainer.dataset.id);
-    const todosContainer = projectContainer.querySelector('.project-content');
-    const project = board.projects.find(project => project.id === projectId);
-    
-    pc.addTodo(project, todosContainer);
-    }))
 
 
 const pc = ProjectsController();

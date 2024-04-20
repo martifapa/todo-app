@@ -50,8 +50,8 @@ export function ProjectsController() {
         projectContainer.classList.add('project');
         projectContainer.dataset.id = project.id;
 
-        const projectHeader = createProjectHeader(project);
         const projectContent = createProjectContent(project);
+        const projectHeader = createProjectHeader(project, projectContent);
 
         projectContainer.appendChild(projectHeader);
         projectContainer.appendChild(projectContent);
@@ -60,16 +60,11 @@ export function ProjectsController() {
     }
 
     function collapseProject(project) {}
-    
-    function addTodo(project, element) {
-        project.createTodo(); // empty todo
-        const todo = todosController.createTodo();
 
-        element.appendChild(todo);
-    }
+
 
     // private
-    function createProjectHeader(project) {
+    function createProjectHeader(project, projectContent) {
         const projectHeader = document.createElement('div');
         projectHeader.classList.add('project-header');
 
@@ -77,14 +72,27 @@ export function ProjectsController() {
         <div class="project-actions">
             <!-- <i class="fa fa-ellipsis-v"></i> -->
                 <!-- <i class="fa fa-ban"></i> -->
-            <i class="fa fa-close"></i>
+                <!-- <a href="#" class="delete-project"><i class="fa fa-close"></i></a> -->
             <i class="fa fa-clone"></i>
-            <a href="" class="create-todo"><i class="fa fa-plus"></i></a>
             <i class="fa fa-caret-square-o-left"></i>
             <!-- <i class="fa fa-caret-square-o-right"></i> -->
         </div>`;
 
         projectHeader.innerHTML = headerHTML;
+
+        const createTodoBtn = document.createElement('a');
+        createTodoBtn.href = '#';
+        createTodoBtn.classList.add('create-todo');
+        createTodoBtn.innerHTML = '<i class="fa fa-plus"></i>';
+
+        createTodoBtn.addEventListener('click', event => {
+            event.preventDefault();
+            project.createTodo(); // empty todo
+            const todo = todosController.createTodo();
+            projectContent.appendChild(todo);
+        })
+
+        projectHeader.querySelector('.project-actions').appendChild(createTodoBtn);
 
         return projectHeader
     }
@@ -97,13 +105,14 @@ export function ProjectsController() {
         return projectContent
     }
 
-    return {createProject, collapseProject, addTodo}
+    return {createProject, collapseProject}
 }
 
 function TodosController() {
     function createTodo(todo=new Todo()) { // create blank todo if none passed
         const todoContainer = document.createElement('div');
         todoContainer.classList.add('todo');
+        todoContainer.dataset.id = todo.id;
 
         const todoTitle = document.createElement('div');
         todoTitle.classList.add('todo-title');
@@ -112,6 +121,19 @@ function TodosController() {
         const todoContent = document.createElement('div');
         todoContent.classList.add('todo-content');
         todoContent.textContent = todo.description;
+
+        const deleteBtn = document.createElement('a');
+        deleteBtn.href = '#';
+        deleteBtn.classList.add('delete-todo');
+        deleteBtn.innerHTML = '<i class="fa fa-close"></i>';
+        
+        deleteBtn.addEventListener('click', event => {
+            event.preventDefault();
+            const todoId = todoContainer.dataset.id;
+            todoContainer.remove();
+        })
+
+        todoContent.appendChild(deleteBtn);
 
         todoContainer.appendChild(todoTitle);
         todoContainer.appendChild(todoContent);
