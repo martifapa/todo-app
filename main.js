@@ -9,20 +9,11 @@ const todo2 = new Todo('title2', 'description2', new Date('2024-04-17'), 2, 'tes
 const todo3 = new Todo('title3', 'description3', new Date('2024-04-16'), 3, 'test', '', false);
 const todo4 = new Todo('title3', 'description3', new Date('2024-04-16'), 3, 'test', '', false);
 
-
 const project = new Project('test', 'creationDate', 'ascending', [todo1, todo2, todo3]);
-// console.log(project)
-
-project.cloneTodo(1)
 
 const board = new Board('board', 'jack', [], [project])
-board.cloneProject(0)
+
 board.createProject('newpro', 'dueDate', 'ascending', [todo1, todo2])
-// console.log(board)
-board.deleteProject(0)
-// console.log(board)
-console.log(board.projects[0].todos.length)
-console.log(board.projects.length)
 
 
 
@@ -30,9 +21,18 @@ const boardController = BoardController();
 boardController.renderBoard(board);
 
 // elements
-const createTodoBtn = document.querySelector('.create-todo');
-createTodoBtn.addEventListener('click', board.projects[0].createTodo('a', 'a', 'a', 'a', 'a', 'a', false))
-createTodoBtn.addEventListener('click', () => console.log(board.projects[0].todos.length))
+const createTodoBtns = document.querySelectorAll('.create-todo');
+
+createTodoBtns.forEach(btn => btn.addEventListener('click', function(event) {
+    event.preventDefault();
+    console.log(1)
+    const projectContainer = event.target.closest('.project');
+    const projectId = parseInt(projectContainer.dataset.id);
+    const todosContainer = projectContainer.querySelector('.project-content');
+    const project = board.projects.find(project => project.id === projectId);
+    
+    pc.addTodo(project, todosContainer);
+    }))
+
 
 const pc = ProjectsController();
-pc.addTodo(board.projects[0], document.querySelector('.project'));

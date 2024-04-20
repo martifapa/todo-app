@@ -33,7 +33,6 @@ export default function BoardController(board=new Board()) {
 
     function createBoardMain(board) {
         const boardMain = document.createElement('main');
-        console.log(board)
         board.projects.map(project => boardMain.appendChild(projectsController.createProject(project)));
 
         return boardMain
@@ -49,6 +48,7 @@ export function ProjectsController() {
     function createProject(project=new Project()) { // create blank project if none passed
         const projectContainer = document.createElement('div');
         projectContainer.classList.add('project');
+        projectContainer.dataset.id = project.id;
 
         const projectHeader = createProjectHeader(project);
         const projectContent = createProjectContent(project);
