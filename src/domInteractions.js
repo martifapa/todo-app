@@ -114,13 +114,13 @@ function TodosController() {
         todoContainer.classList.add('todo');
         todoContainer.dataset.id = todo.id;
 
-        const todoTitle = document.createElement('div');
-        todoTitle.classList.add('todo-title');
-        todoTitle.textContent = todo.title;
+        const todoHeader = document.createElement('div');
+        todoHeader.classList.add('todo-header');
 
-        const todoContent = document.createElement('div');
-        todoContent.classList.add('todo-content');
-        todoContent.textContent = todo.description;
+        const todoTitle = document.createElement('input');
+        todoTitle.classList.add('todo-title');
+        todoTitle.placeholder = "Enter title";
+        todoTitle.value = todo.title || "";
 
         const deleteBtn = document.createElement('a');
         deleteBtn.href = '#';
@@ -133,9 +133,16 @@ function TodosController() {
             todoContainer.remove();
         })
 
-        todoContent.appendChild(deleteBtn);
+        todoHeader.appendChild(todoTitle);
+        todoHeader.appendChild(deleteBtn);
 
-        todoContainer.appendChild(todoTitle);
+        const todoContent = document.createElement('textarea');
+        todoContent.classList.add('todo-content');
+        todoContent.placeholder = "...";
+        todoContent.value = todo.description || "";
+
+
+        todoContainer.appendChild(todoHeader);
         todoContainer.appendChild(todoContent);
 
         return todoContainer
