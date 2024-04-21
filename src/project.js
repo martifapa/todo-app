@@ -31,6 +31,7 @@ export default class Project {
         const clone = Object.assign(Object.create(Object.getPrototypeOf(selectedTodo)), selectedTodo);
         clone.id = clonedCounter--;
         this.todos.push(clone);
+        return clone
     }
 
     sortTodos(property, direction) {
