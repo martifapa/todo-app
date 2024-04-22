@@ -38,15 +38,21 @@ export function ProjectsController() {
     function createProject(parentBoard, parentBoardContainer, project=false) {
         // Add project to backend if none passed
         if (!project) {project = parentBoard.createProject()}
-        // Project skeleton
+        
+        // PROJECT HTML skeleton
         const projectContainer = document.createElement('div');
         projectContainer.classList.add('project');
         projectContainer.dataset.id = project.id;
         
         const projectHeader = document.createElement('div');
         projectHeader.classList.add('project-header');
+
+        const projectTitle = document.createElement('input');
+        projectTitle.classList.add('project-title');
+        projectTitle.placeholder = 'Enter title';
+        projectTitle.value = project.title || '';
         
-        const headerHTML = `<h3>${project.title}</h3>
+        const headerHTML = `
         <div class="project-actions">
             <!-- <i class="fa fa-ellipsis-v"></i> -->
             <!-- <i class="fa fa-ban"></i> -->
@@ -92,6 +98,8 @@ export function ProjectsController() {
             projectContainer.parentNode.insertBefore(clonedNode, projectContainer.nextSibling);
         })
 
+        // PROJECT appendChilds
+        projectHeader.appendChild(projectTitle);
         projectHeader.querySelector('.project-actions').appendChild(createTodoBtn);
         projectHeader.querySelector('.project-actions').appendChild(deleteProjectBtn);
         projectHeader.querySelector('.project-actions').appendChild(cloneProjectBtn);
@@ -116,7 +124,7 @@ function TodosController() {
         // Add todo to parent library (backend)
         if (!todo) {todo = parentProject.createTodo()}
         
-        // TODO skeleton
+        // TODO HTML skeleton
         const todoContainer = document.createElement('div');
         todoContainer.classList.add('todo');
         todoContainer.dataset.id = todo.id;
@@ -128,7 +136,7 @@ function TodosController() {
         const todoTitle = document.createElement('input');
         todoTitle.classList.add('todo-title');
         todoTitle.placeholder = "Enter title";
-        todoTitle.value = todo.title || "";
+        todoTitle.value = todo.title || '';
 
         // const todoDueDate = document.createElement('p');
         // todoDueDate.textContent = todo.dueDate;
@@ -166,6 +174,11 @@ function TodosController() {
             todoContainer.parentNode.insertBefore(clonedNode, todoContainer.nextSibling);
         })
 
+        // update todo contents
+        todoTitle.addEventListener('change', event => {
+            writeTodo(todo, 'title', todoTitle.value);
+        })
+
         // TODO appendChilds
         todoHeader.appendChild(todoTitle);
         todoHeader.appendChild(deleteBtn);
@@ -179,8 +192,8 @@ function TodosController() {
         return todoContainer
     }
 
-    function writeTodo(todo) {
-
+    function writeTodo(todo, property, value) {
+        todo.setProperty(property, value);
     }
     
     return {createTodo}
