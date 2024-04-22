@@ -39,11 +39,6 @@ export function ProjectsController() {
         const projectContainer = document.createElement('div');
         projectContainer.classList.add('project');
         projectContainer.dataset.id = project.id;
-
-        // const projectContent = createProjectContent(project);
-        // const projectHeader = createProjectHeader(project, projectContent);
-
-        
         
         const projectHeader = document.createElement('div');
         projectHeader.classList.add('project-header');
@@ -67,8 +62,7 @@ export function ProjectsController() {
         createTodoBtn.innerHTML = '<i class="fa fa-plus"></i>';
         createTodoBtn.addEventListener('click', event => {
             event.preventDefault();
-            project.createTodo(); // empty todo
-            const todo = todosController.createTodo(project, projectContent);
+            const todo = todosController.createTodo(project, projectContainer);
             projectContent.appendChild(todo);
         })
 
@@ -86,7 +80,8 @@ export function ProjectsController() {
         // clone project
         
         projectHeader.querySelector('.project-actions').appendChild(createTodoBtn);
-        
+        projectHeader.querySelector('.project-actions').appendChild(deleteProjectBtn);
+
         const projectContent = document.createElement('div');
         projectContent.classList.add('project-content');
         project.todos.map(todo => projectContent.appendChild(todosController.createTodo(project, projectContent, todo)));
@@ -103,7 +98,9 @@ export function ProjectsController() {
 }
 
 function TodosController() {
-    function createTodo(parentProject, parentProjectContent, todo=new Todo()) { // create blank todo if none passed
+    function createTodo(parentProject, parentProjectContent, todo=false) { // create blank todo if none passed
+        // Add todo to parent library (backend)
+        if (!todo) {todo = parentProject.createTodo()}
         // DOM structure
         const todoContainer = document.createElement('div');
         todoContainer.classList.add('todo');

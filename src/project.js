@@ -19,7 +19,9 @@ export default class Project {
     getTitle() { return this.title}
 
     createTodo(title, description, dueDate, priority, type, content, isDone) {
-        this.todos.push(new Todo(title, description, dueDate, priority, type, content, isDone));
+        const newTodo = new Todo(title, description, dueDate, priority, type, content, isDone);
+        this.todos.push(newTodo);
+        return newTodo
     }
 
     deleteTodo(todoId) {
