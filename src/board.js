@@ -16,7 +16,9 @@ export default class Board {
     setTitle(newTitle) { this.title = newTitle }
 
     createProject(title, orderCriteria, directionCriteria, todos=[]) {
-        this.projects.push(new Project(...arguments));
+        const newProject = new Project(...arguments)
+        this.projects.push(newProject);
+        return newProject
     }
 
     deleteProject(projectId) {
@@ -28,6 +30,7 @@ export default class Board {
         const clone = Object.assign(Object.create(Object.getPrototypeOf(selectedProject)), selectedProject);
         clone.id = clonedCounter--;
         this.projects.push(clone);
+        return clone
     }
 
     addUser(selectedUser) {

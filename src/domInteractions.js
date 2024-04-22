@@ -35,7 +35,10 @@ export function ProjectsController() {
     const todosController = TodosController();
     
     // public
-    function createProject(parentBoard, parentBoardContainer, project=new Project()) { // create blank project if none passed
+    function createProject(parentBoard, parentBoardContainer, project=false) {
+        // Add project to backend if none passed
+        if (!project) {let project = parentBoard.createProject()}
+        // Project skeleton
         const projectContainer = document.createElement('div');
         projectContainer.classList.add('project');
         projectContainer.dataset.id = project.id;
@@ -48,7 +51,6 @@ export function ProjectsController() {
             <!-- <i class="fa fa-ellipsis-v"></i> -->
             <!-- <i class="fa fa-ban"></i> -->
             <!-- <a href="#" class="delete-project"><i class="fa fa-close"></i></a> -->
-            <i class="fa fa-clone"></i>
             <i class="fa fa-caret-square-o-left"></i>
             <!-- <i class="fa fa-caret-square-o-right"></i> -->
         </div>`;
@@ -78,9 +80,21 @@ export function ProjectsController() {
         })
         
         // clone project
-        
+        const cloneProjectBtn = document.createElement('a');
+        cloneProjectBtn.href = '#';
+        cloneProjectBtn.classList.add('clone-project');
+        cloneProjectBtn.innerHTML = '<i class="fa fa-clone"></i>';
+        cloneProjectBtn.addEventListener('click', event => {
+            event.preventDefault();
+            const projectId = parseInt(event.target.closest('.project').dataset.id);
+            const clone = parentBoard.cloneProject(projectId);
+            const clonedNode = createProject(parentBoard, parentBoardContainer, project);
+            projectContainer.parentNode.insertBefore(clonedNode, projectContainer.nextSibling);
+        })
+
         projectHeader.querySelector('.project-actions').appendChild(createTodoBtn);
         projectHeader.querySelector('.project-actions').appendChild(deleteProjectBtn);
+        projectHeader.querySelector('.project-actions').appendChild(cloneProjectBtn);
 
         const projectContent = document.createElement('div');
         projectContent.classList.add('project-content');
@@ -98,10 +112,11 @@ export function ProjectsController() {
 }
 
 function TodosController() {
-    function createTodo(parentProject, parentProjectContent, todo=false) { // create blank todo if none passed
+    function createTodo(parentProject, parentProjectContent, todo=false) {
         // Add todo to parent library (backend)
         if (!todo) {todo = parentProject.createTodo()}
-        // DOM structure
+        
+        // TODO skeleton
         const todoContainer = document.createElement('div');
         todoContainer.classList.add('todo');
         todoContainer.dataset.id = todo.id;
@@ -109,11 +124,24 @@ function TodosController() {
         const todoHeader = document.createElement('div');
         todoHeader.classList.add('todo-header');
 
+        // TODO elements
         const todoTitle = document.createElement('input');
         todoTitle.classList.add('todo-title');
         todoTitle.placeholder = "Enter title";
         todoTitle.value = todo.title || "";
 
+        // const todoDueDate = document.createElement('p');
+        // todoDueDate.textContent = todo.dueDate;
+        // const todoPriority = document.createElement('p');
+        // todoPriority.textContent = todo.priority;
+        // const todoIsDone = document.createElement('p');
+
+        const todoContent = document.createElement('textarea');
+        todoContent.classList.add('todo-content');
+        todoContent.placeholder = "...";
+        todoContent.value = todo.description || "";
+
+        // TODO buttons
         // delete todo
         const deleteBtn = document.createElement('a');
         deleteBtn.href = '#';
@@ -138,14 +166,12 @@ function TodosController() {
             todoContainer.parentNode.insertBefore(clonedNode, todoContainer.nextSibling);
         })
 
-        const todoContent = document.createElement('textarea');
-        todoContent.classList.add('todo-content');
-        todoContent.placeholder = "...";
-        todoContent.value = todo.description || "";
-
+        // TODO appendChilds
         todoHeader.appendChild(todoTitle);
         todoHeader.appendChild(deleteBtn);
         todoHeader.appendChild(cloneBtn);
+        // todoHeader.appendChild(todoDueDate);
+        // todoHeader.appendChild(todoPriority);
 
         todoContainer.appendChild(todoHeader);
         todoContainer.appendChild(todoContent);
@@ -153,7 +179,9 @@ function TodosController() {
         return todoContainer
     }
 
-    function writeTodo(todo) {}
+    function writeTodo(todo) {
+
+    }
     
     return {createTodo}
 }
