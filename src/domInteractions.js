@@ -37,7 +37,7 @@ export function ProjectsController() {
     // public
     function createProject(parentBoard, parentBoardContainer, project=false) {
         // Add project to backend if none passed
-        if (!project) {let project = parentBoard.createProject()}
+        if (!project) {project = parentBoard.createProject()}
         // Project skeleton
         const projectContainer = document.createElement('div');
         projectContainer.classList.add('project');
@@ -88,7 +88,7 @@ export function ProjectsController() {
             event.preventDefault();
             const projectId = parseInt(event.target.closest('.project').dataset.id);
             const clone = parentBoard.cloneProject(projectId);
-            const clonedNode = createProject(parentBoard, parentBoardContainer, project);
+            const clonedNode = createProject(parentBoard, parentBoardContainer, clone);
             projectContainer.parentNode.insertBefore(clonedNode, projectContainer.nextSibling);
         })
 
