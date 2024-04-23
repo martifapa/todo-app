@@ -132,28 +132,39 @@ function TodosController() {
         const todoHeader = document.createElement('div');
         todoHeader.classList.add('todo-header');
 
-        // TODO elements
+        const todoContent = document.createElement('div');
+        todoContent.classList.add('todo-content');
+
+        // header elements
+        const todoDueDate = document.createElement('input');
+        todoDueDate.type = 'date';
+        todoDueDate.textContent = todo.dueDate.toLocaleString().split(',')[0];
+        
+        const todoMenu = document.createElement('a');
+        todoMenu.href = '#';
+        todoMenu.classList.add('todo-menu');
+        todoMenu.innerHTML = '<i class="fa fa-ellipsis-h"></i>';
+
+        const todoUl = document.createElement('ul');
+
         const todoPriority = document.createElement('input');
         todoPriority.type = 'number';
         todoPriority.value = todo.priority;
-
+        
+        const todoIsDone = document.createElement('input');
+        todoIsDone.type = 'checkbox';
+        todoIsDone.checked = todo.isDone;
+        
+        // content elemetns
         const todoTitle = document.createElement('input');
         todoTitle.classList.add('todo-title');
         todoTitle.placeholder = "Enter title";
         todoTitle.value = todo.title || '';
 
-        const todoDueDate = document.createElement('input');
-        todoDueDate.type = 'date';
-        todoDueDate.textContent = todo.dueDate.toLocaleString().split(',')[0];
-        
-        const todoIsDone = document.createElement('input');
-        todoIsDone.type = 'checkbox';
-        todoIsDone.checked = todo.isDone;
-
-        const todoContent = document.createElement('textarea');
-        todoContent.classList.add('todo-content');
-        todoContent.placeholder = "...";
-        todoContent.value = todo.description || "";
+        const todoText = document.createElement('textarea');
+        todoText.classList.add('todo-text');
+        todoText.placeholder = "...";
+        todoText.value = todo.description || "";
 
         // TODO buttons
         // delete todo
@@ -196,12 +207,18 @@ function TodosController() {
         })
 
         // TODO appendChilds
-        todoHeader.appendChild(todoPriority);
+        todoUl.appendChild(todoPriority);
+        todoUl.appendChild(todoIsDone);
+        todoUl.appendChild(cloneBtn);
+        
+        todoMenu.appendChild(todoUl);
+
         todoHeader.appendChild(todoDueDate);
-        todoHeader.appendChild(todoIsDone);
-        todoHeader.appendChild(todoTitle);
+        todoHeader.appendChild(todoMenu)
         todoHeader.appendChild(deleteBtn);
-        todoHeader.appendChild(cloneBtn);
+
+        todoContent.appendChild(todoTitle);
+        todoContent.appendChild(todoText);
 
         todoContainer.appendChild(todoHeader);
         todoContainer.appendChild(todoContent);

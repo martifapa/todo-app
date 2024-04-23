@@ -37,7 +37,7 @@ main {
     flex-direction: column;
     gap: 10px;
     padding: 10px;
-    background-color: antiquewhite;
+    background-color: whitesmoke;
 }
 
 .project-header {
@@ -50,9 +50,74 @@ main {
     gap: 10px;
 }
 
+
+/* TODO */
 .todo {
     width: 250px;
     min-height: 30px;
     border: 1px solid grey;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    resize: vertical;
+    overflow: auto;
+}
+
+.todo > * {
+    padding: 5px;
+}
+
+/* TODO-header */
+.todo-header {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    background-color: lightgray;
+}
+
+.todo-header input[type=date] {
+    margin-right: auto;
+}
+
+.todo-menu ul {
+    position: absolute;
+    display: none;
+    background-color: white;
+}
+.todo-menu:hover > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px;
+}
+
+/* TODO-content */
+.todo-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.todo-title {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    padding-bottom: 4px;
+}
+
+.todo input:focus {
+    outline: none;
+}
+
+.todo-text {
+    background-color: transparent;
+    border: none;
+    flex: 1;
+    resize: none;
+    overflow: hidden;
+}
+
+.todo textarea:focus {
+    border: none;
+    outline: none;
 }
