@@ -95,7 +95,7 @@ export function ProjectsController() {
             const projectId = parseInt(event.target.closest('.project').dataset.id);
             const clone = parentBoard.cloneProject(projectId);
             const clonedNode = createProject(parentBoard, parentBoardContainer, clone);
-            projectContainer.parentNode.insertBefore(clonedNode, projectContainer.nextSibling);
+            projectContainer.parentNode.insertBefore(clonedNode, projectContainer.nextSibling); // appendChild?
         })
 
         // PROJECT appendChilds
@@ -106,6 +106,7 @@ export function ProjectsController() {
 
         const projectContent = document.createElement('div');
         projectContent.classList.add('project-content');
+        console.log(project.sortTodos('creationDate', 'ascending'));
         project.todos.map(todo => projectContent.appendChild(todosController.createTodo(project, projectContent, todo)));
         
         projectContainer.appendChild(projectHeader);
@@ -171,7 +172,8 @@ function TodosController() {
             const clonedTodoId = parseInt(event.target.closest('.todo').dataset.id);
             const clonedTodo = parentProject.cloneTodo(clonedTodoId);
             const clonedNode = createTodo(parentProject, parentProjectContent, clonedTodo);
-            todoContainer.parentNode.insertBefore(clonedNode, todoContainer.nextSibling);
+            todoContainer.parentNode.insertBefore(clonedNode, todoContainer.nextSibling); // appendChild?
+            sortTodos(parentProject, parentProjectContent);
         })
 
         // update todo contents
@@ -188,7 +190,7 @@ function TodosController() {
 
         todoContainer.appendChild(todoHeader);
         todoContainer.appendChild(todoContent);
-
+        
         return todoContainer
     }
 
@@ -196,5 +198,13 @@ function TodosController() {
         todo.setProperty(property, value);
     }
     
+    function sortTodos(parentProject, parentProjectContent, property='creationDate', direction='ascending') {
+        parentProject.sortTodos(property, direction);
+        while (parentProjectContent.firstChild) {
+            parentProjectContent.firstChild.remove();
+        }
+        parentProject.todos.forEach(todo => parentProjectContent.appendChild(createTodo(parentProject, parentProjectContent, todo)));
+    }
+
     return {createTodo}
 }

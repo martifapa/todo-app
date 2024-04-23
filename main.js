@@ -2,6 +2,7 @@ import Board from './src/board.js';
 import Project from './src/project.js'
 import Todo from './src/todo.js'
 import BoardController, {ProjectsController} from './src/domInteractions.js'
+// import { format } from './node_modules/date-fns'
 
 
 const todo1 = new Todo('title1', 'description1', new Date('2024-04-15'), 1, 'test', '', false);

@@ -37,7 +37,6 @@ export default class Project {
     }
 
     sortTodos(property, direction) {
-        let result;
         if (direction === 'ascending') {
             return this.todos.sort((o1,o2) => {
                 return o1[property]-o2[property] ? 1 : o2[property]-o1[property] ? -1 : 0;
