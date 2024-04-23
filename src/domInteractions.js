@@ -138,7 +138,7 @@ function TodosController() {
         // header elements
         const todoDueDate = document.createElement('input');
         todoDueDate.type = 'date';
-        todoDueDate.textContent = todo.dueDate.toLocaleString().split(',')[0];
+        todoDueDate.value = todo.dueDate; //todo.dueDate.toLocaleString().split(',')[0];
         
         const todoMenu = document.createElement('a');
         todoMenu.href = '#';
@@ -147,15 +147,33 @@ function TodosController() {
 
         const todoUl = document.createElement('ul');
 
+        const priorityContainer = document.createElement('div');
+        priorityContainer.classList.add('todo-menu-option');
+
+        const priorityLabel = document.createElement('p');
+        priorityLabel.textContent = 'Priority';
+
         const todoPriority = document.createElement('input');
         todoPriority.type = 'number';
         todoPriority.value = todo.priority;
+
+        priorityContainer.appendChild(priorityLabel);
+        priorityContainer.appendChild(todoPriority);
         
+        const isDoneContainer = document.createElement('div');
+        isDoneContainer.classList.add('todo-menu-option');
+
+        const isDoneLabel = document.createElement('p');
+        isDoneLabel.textContent = 'Done';
+
         const todoIsDone = document.createElement('input');
         todoIsDone.type = 'checkbox';
         todoIsDone.checked = todo.isDone;
+
+        isDoneContainer.appendChild(isDoneLabel);
+        isDoneContainer.appendChild(todoIsDone);
         
-        // content elemetns
+        // content elements
         const todoTitle = document.createElement('input');
         todoTitle.classList.add('todo-title');
         todoTitle.placeholder = "Enter title";
@@ -179,6 +197,12 @@ function TodosController() {
         })
 
         // clone todo
+        const cloneContainer = document.createElement('div');
+        cloneContainer.classList.add('todo-menu-option');
+
+        const cloneLabel = document.createElement('p');
+        cloneLabel.textContent = 'Clone todo';
+
         const cloneBtn = document.createElement('a');
         cloneBtn.href = '#';
         cloneBtn.classList.add('clone-todo');
@@ -191,6 +215,8 @@ function TodosController() {
             todoContainer.parentNode.insertBefore(clonedNode, todoContainer.nextSibling); // appendChild?
             sortTodos(parentProject, parentProjectContent);
         })
+        cloneContainer.appendChild(cloneLabel);
+        cloneContainer.appendChild(cloneBtn);
 
         // update todo contents
         todoTitle.addEventListener('change', event => {
@@ -207,9 +233,9 @@ function TodosController() {
         })
 
         // TODO appendChilds
-        todoUl.appendChild(todoPriority);
-        todoUl.appendChild(todoIsDone);
-        todoUl.appendChild(cloneBtn);
+        todoUl.appendChild(priorityContainer);
+        todoUl.appendChild(isDoneContainer);
+        todoUl.appendChild(cloneContainer);
         
         todoMenu.appendChild(todoUl);
 

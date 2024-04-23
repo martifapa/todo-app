@@ -90,6 +90,10 @@ main {
     padding: 6px;
 }
 
+.todo-menu-option {
+    display: flex;
+}
+
 /* TODO-content */
 .todo-content {
     flex: 1;
