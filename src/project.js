@@ -4,7 +4,7 @@ let clonedCounter = -2;
 let idCounter = 0;
 
 export default class Project {
-    constructor (title="", orderCriteria="ascending", directionCriteria="", todos=[]) {
+    constructor (title="", orderCriteria="priority", directionCriteria="descending", todos=[]) {
         this.title = title;
         this.orderCriteria = orderCriteria;
         this.directionCriteria = directionCriteria;
@@ -19,8 +19,10 @@ export default class Project {
     getTitle() { return this.title}
 
     createTodo(title, description, dueDate, priority, type, content, isDone) {
-        const newTodo = new Todo(title, description, dueDate, priority, type, content, isDone);
+        const newTodo = new Todo(...arguments);
         this.todos.push(newTodo);
+        // this.sortTodos();
+        // console.log(this.todos)
         return newTodo
     }
 
@@ -36,14 +38,14 @@ export default class Project {
         return clone
     }
 
-    sortTodos(property, direction) {
+    sortTodos(property=this.orderCriteria, direction=this.directionCriteria) {
         if (direction === 'ascending') {
-            return this.todos.sort((o1,o2) => {
-                return o1[property]-o2[property] ? 1 : o2[property]-o1[property] ? -1 : 0;
+            return this.todos.sort((todo1,todo2) => {
+                return todo1[property]-todo2[property] ? 1 : todo2[property]-todo1[property] ? -1 : 0;
               });
         } else {
-            return this.todos.sort((o1,o2) => {
-                return o1[property]-o2[property] ? -1 : o2[property]-o1[property] ? 1 : 0;
+            return this.todos.sort((todo1,todo2) => {
+                return todo1[property]-todo2[property] ? -1 : todo2[property]-todo1[property] ? 1 : 0;
               });
         }
     }

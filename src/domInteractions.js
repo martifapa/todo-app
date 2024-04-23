@@ -106,7 +106,6 @@ export function ProjectsController() {
 
         const projectContent = document.createElement('div');
         projectContent.classList.add('project-content');
-        console.log(project.sortTodos('creationDate', 'ascending'));
         project.todos.map(todo => projectContent.appendChild(todosController.createTodo(project, projectContent, todo)));
         
         projectContainer.appendChild(projectHeader);
@@ -134,16 +133,20 @@ function TodosController() {
         todoHeader.classList.add('todo-header');
 
         // TODO elements
+        const todoPriority = document.createElement('input');
+        todoPriority.value = todo.priority;
+
         const todoTitle = document.createElement('input');
         todoTitle.classList.add('todo-title');
         todoTitle.placeholder = "Enter title";
         todoTitle.value = todo.title || '';
 
-        // const todoDueDate = document.createElement('p');
-        // todoDueDate.textContent = todo.dueDate;
-        // const todoPriority = document.createElement('p');
-        // todoPriority.textContent = todo.priority;
-        // const todoIsDone = document.createElement('p');
+        const todoDueDate = document.createElement('p');
+        todoDueDate.textContent = todo.dueDate.toLocaleString().split(',')[0];
+        
+        const todoIsDone = document.createElement('input');
+        todoIsDone.type = 'checkbox';
+        todoIsDone.checked = todo.isDone;
 
         const todoContent = document.createElement('textarea');
         todoContent.classList.add('todo-content');
@@ -181,12 +184,22 @@ function TodosController() {
             writeTodo(todo, 'title', todoTitle.value);
         })
 
+        todoPriority.addEventListener('change', event => {
+            writeTodo(todo, 'priority', todoPriority.value);
+        })
+
+        todoIsDone.addEventListener('change', event => {
+            writeTodo(todo, 'isDone', todoIsDone.checked);
+            console.log(todo)
+        })
+
         // TODO appendChilds
+        todoHeader.appendChild(todoPriority);
+        todoHeader.appendChild(todoDueDate);
+        todoHeader.appendChild(todoIsDone);
         todoHeader.appendChild(todoTitle);
         todoHeader.appendChild(deleteBtn);
         todoHeader.appendChild(cloneBtn);
-        // todoHeader.appendChild(todoDueDate);
-        // todoHeader.appendChild(todoPriority);
 
         todoContainer.appendChild(todoHeader);
         todoContainer.appendChild(todoContent);
@@ -198,7 +211,7 @@ function TodosController() {
         todo.setProperty(property, value);
     }
     
-    function sortTodos(parentProject, parentProjectContent, property='creationDate', direction='ascending') {
+    function sortTodos(parentProject, parentProjectContent, property='priority', direction='descending') {
         parentProject.sortTodos(property, direction);
         while (parentProjectContent.firstChild) {
             parentProjectContent.firstChild.remove();
