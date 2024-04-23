@@ -134,6 +134,7 @@ function TodosController() {
 
         // TODO elements
         const todoPriority = document.createElement('input');
+        todoPriority.type = 'number';
         todoPriority.value = todo.priority;
 
         const todoTitle = document.createElement('input');
@@ -141,7 +142,8 @@ function TodosController() {
         todoTitle.placeholder = "Enter title";
         todoTitle.value = todo.title || '';
 
-        const todoDueDate = document.createElement('p');
+        const todoDueDate = document.createElement('input');
+        todoDueDate.type = 'date';
         todoDueDate.textContent = todo.dueDate.toLocaleString().split(',')[0];
         
         const todoIsDone = document.createElement('input');
