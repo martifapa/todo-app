@@ -19,6 +19,10 @@ a {
     color: black;
 }
 
+input:focus {
+    outline: none;
+}
+
 .wrapper {
     display: grid;
     grid-template-rows: 80px 1fr;
@@ -36,6 +40,7 @@ main {
     min-height: calc(100vh - 80px);
 }
 
+/* PROJECT */
 .project {
     display: flex;
     flex-direction: column;
@@ -49,6 +54,15 @@ main {
     justify-content: space-between;
 }
 
+.project-title {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    padding-bottom: 4px;
+    font-size: 1.4rem;
+    text-align: end;
+}
+
 .project-content {
     display: flex;
     gap: 10px;
@@ -60,6 +74,7 @@ main {
     width: 250px;
     min-height: 30px;
     border: 1px solid grey;
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
     resize: vertical;
@@ -128,10 +143,6 @@ input[type="number"] {
     border: none;
     border-bottom: 1px solid grey;
     padding-bottom: 4px;
-}
-
-.todo input:focus {
-    outline: none;
 }
 
 .todo-text {
