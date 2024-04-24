@@ -207,7 +207,7 @@ function TodosController() {
         cloneBtn.href = '#';
         cloneBtn.classList.add('clone-todo');
         cloneBtn.innerHTML = '<i class="fa fa-clone"></i>';
-        cloneBtn.addEventListener('click', event => {
+        cloneContainer.addEventListener('click', event => {
             event.preventDefault();
             const clonedTodoId = parseInt(event.target.closest('.todo').dataset.id);
             const clonedTodo = parentProject.cloneTodo(clonedTodoId);
@@ -227,9 +227,9 @@ function TodosController() {
             writeTodo(todo, 'priority', todoPriority.value);
         })
 
-        todoIsDone.addEventListener('change', event => {
+        isDoneContainer.addEventListener('click', event => {
+            todoIsDone.checked = !todo.isDone;
             writeTodo(todo, 'isDone', todoIsDone.checked);
-            console.log(todo)
         })
 
         // TODO appendChilds
